@@ -4,6 +4,9 @@ from ncclient import manager
 from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SSHError, AuthenticationError
 
+logging.basicConfig(
+    level=logging.INFO,
+)
 
 PORT = 830
 TIMEOUT = 60
@@ -13,11 +16,7 @@ LOOK_FOR_KEYS = False
 HOSTKEY_VERIFY = False
 DEVICE = "sandbox-iosxr-1.cisco.com"
 
-logging.basicConfig(
-    level=logging.INFO,
-)
-
-hostname_filter = """
+HOSTNAME_FILTER = """
     <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"> 
         <system xmlns="http://openconfig.net/yang/system">
             <config>
@@ -25,7 +24,7 @@ hostname_filter = """
             </config>
         </system>
     </filter>
-"""
+    """
 
 
 def connect() -> str:
@@ -42,13 +41,13 @@ def connect() -> str:
 
 
 def get_hostname(m: manager) -> str:
-    return m.get_config(source="running", filter=hostname_filter)
+    return m.get_config(source="running", filter=HOSTNAME_FILTER)
 
 
 def print_results(config: str) -> None:
     parsed_cfg = parse_xml_to_dict(config)
     hostname = parsed_cfg["rpc-reply"]["data"]["system"]["config"]["hostname"]
-    msg = f"!!! Successfully retrieve data from {hostname} !!!"
+    msg = f"!!! Successfully retrieved hostname from {hostname} !!!"
     logging.info(msg)
     print(msg)
 
