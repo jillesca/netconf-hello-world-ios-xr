@@ -14,7 +14,7 @@ Restrives hostname using [openconfig-system.yang](https://github.com/openconfig/
 </filter>
 ```
 
-This script can be useful to monitor continously the status of XR. The goal was to create a keep alive connection, while keeping it at a minimum and verifying is working.
+This script can be useful to monitor continously the status of XR. Its primary goal was to establish a minimal connection, while also verifying its functionality by retrieving data, in this case the device's hostname.
 
 For real use, consider using environment variables rather than hardcoding credentials for your XR instance or device.
 
