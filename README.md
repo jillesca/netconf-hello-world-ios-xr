@@ -1,4 +1,4 @@
-# XR Netconf Test Connection
+# XR hello world using Netconf
 
 Simple hello world in netconf to test connectivity to IOS-XR
 
